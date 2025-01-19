@@ -1,0 +1,56 @@
+{
+    "network": {
+      "1": {
+        "hrp": "dione",
+        "A": {
+          "dioneAssetID": "D8mxfovjYSN6XMbpWxaRk6xqdFHCQcxwzvGP9tmTx2AsiPFUc"
+        },
+        "2YjjguzbzbhbpQYUioAcNmw5xbmiHKrae8S2HWVKLH6Ce7DiD6": {},
+        "O": {
+          "blockchainID": "11111111111111111111111111111111LpoYY"
+        },
+        "11111111111111111111111111111111LpoYY": {},
+        "D": {},
+        "faqcDVftkSVcZ2nESGxGKKZbNALcaU5AUc15SwwaiTkAgy3KK": {}
+      },
+      "5": {
+        "hrp": "testnet",
+        "A": {
+          "dioneAssetID": "2NXDF6rpi7fJqFnuSKSnoVCNF3Py22xdjQavy9QgvjL3zr2yue"
+        },
+        "3wRxPEwJZTqP38NFkKHU1pWriDcePzEvj8PAtHikzmMpwAXML": {},
+        "O": {
+          "blockchainID": "11111111111111111111111111111111LpoYY"
+        },
+        "11111111111111111111111111111111LpoYY": {},
+        "D": {},
+        "L1m631VHS1yuYkicaNRQTzzbE71dG942sgF3sCnHFgCTzNmsD": {}
+      },
+      "1337": {
+        "hrp": "custom",
+        "A": {
+          "dioneAssetID": "BUuypiq2wyuLMvyhzFXcPyxPMCgSp7eeDohhQRqTChoBjKziC"
+        },
+        "qzfF3A11KzpcHkkqznEyQgupQrCNS6WV6fTUTwZpEKqhj1QE7": {},
+        "O": {
+          "blockchainID": "11111111111111111111111111111111LpoYY"
+        },
+        "11111111111111111111111111111111LpoYY": {},
+        "D": {},
+        "BR28ypgLATNS6PbtHMiJ7NQ61vfpT27Hj8tAcZ1AHsfU5cz88": {}
+      },
+      "12345": {
+        "hrp": "local",
+        "A": {
+          "dioneAssetID": "2fombhL7aGPwj3KH4bfrmJwW6PVnMobf9Y2fn9GwxiAAJyFDbe"
+        },
+        "2eNy1mUFdmaxXNj1eQHUe7Np4gju9sJsEtWQ4MX3ToiNKuADed": {},
+        "O": {
+          "blockchainID": "11111111111111111111111111111111LpoYY"
+        },
+        "11111111111111111111111111111111LpoYY": {},
+        "D": {},
+        "2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU": {}
+      }
+    }
+  }
