@@ -24,7 +24,7 @@ export const getValidatorStats = async (nodeID: string) => {
 
 export const fetchNodeInfo = async (nodeID: string) => {
   try {
-    const API_URL = "https://testnode.dioneprotocol.com/ext/info"; // Use the correct API endpoint.
+    const API_URL = "https://node.dioneprotocol.com/ext/info"; // Use the correct API endpoint.
 
     // Fetch the node ID from the API
     const nodeIDResponse = await axios.post(API_URL, {

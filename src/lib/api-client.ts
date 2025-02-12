@@ -1,6 +1,6 @@
 import { ApiResponse, Device, User, Validator } from '../types/api';
 
-const API_URL = "http://100.70.162.111:3004/api/v1";
+const API_URL = "http://54.38.189.103:3004/api/v1";
 
 class ApiClient {
     private token: string | null = null;

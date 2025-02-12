@@ -1,6 +1,6 @@
 import { StakingFormData } from '../types/staking';
 
-const API_BASE_URL = 'http://100.70.162.111:3004/api/v1';
+const API_BASE_URL = 'http://54.38.189.103:3004/api/v1';
 
 export async function exportFunds(data: { 
   walletAddress: string; 

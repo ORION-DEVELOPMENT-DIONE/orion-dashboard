@@ -140,10 +140,10 @@ export function StakingPage() {
   const fetchBalances = async () => {
     try {
       const { data: dChainData } = await axios.get(
-        `http://100.70.162.111:3004/api/v1/wallet/balance?walletAddress=${formData.walletAddress}`
+        `http://54.38.189.103:3004/api/v1/wallet/balance?walletAddress=${formData.walletAddress}`
       );
       const { data: oChainData } = await axios.get(
-        `http://100.70.162.111:3004/api/v1/o-chain/balance?oAddress=${formData.oAddress}`
+        `http://54.38.189.103:3004/api/v1/o-chain/balance?oAddress=${formData.oAddress}`
       );
 
       setDChainBalance(dChainData.balance || 0);
@@ -160,7 +160,7 @@ export function StakingPage() {
     }
 
     handleApiCall(
-      'http://100.70.162.111:3004/api/v1/wallet/process',
+      'http://54.38.189.103:3004/api/v1/wallet/process',
       {
         walletAddress: formData.walletAddress,
         privateKey: formData.privateKey,
@@ -204,7 +204,7 @@ export function StakingPage() {
     }
 
     handleApiCall(
-      'http://100.70.162.111:3004/api/v1/import',
+      'http://54.38.189.103:3004/api/v1/import',
       {
         privateKey: formData.privateKey,
       },
@@ -223,7 +223,7 @@ export function StakingPage() {
     }
 
     handleApiCall(
-      'http://100.70.162.111:3004/api/v1/addValidator/add-validator',
+      'http://54.38.189.103:3004/api/v1/addValidator/add-validator',
       {
         nodeId: formData.nodeId,
         oAddress: formData.oAddress,

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { MetricsResponse } from '../types/metrics';
 import { getAuthToken } from '../utils/auth';
 
-const API_BASE_URL = 'http://100.70.162.111:3004/api/v1';
+const API_BASE_URL = 'http://54.38.189.103:3004/api/v1';
 
 export const fetchRealtimeMetrics = async () => {
   const token = getAuthToken();

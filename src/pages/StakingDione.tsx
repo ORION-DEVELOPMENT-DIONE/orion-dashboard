@@ -34,7 +34,7 @@ function StakingDioneContent() {
   const [formData, setFormData] = useState({
     stakeAmount: "",
     nodeId: "",
-    blsPublicKey: "",
+    blsPublicKey: "0xabbb10b000bc0c67d138236d48cc0c309964903fe7cda5211d5c7c69fe1a5ffb903ce1f190bf8819b1435ee31a250578",
     blsSignature: "",
     startDate: new Date(),
     endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
@@ -111,7 +111,7 @@ function StakingDioneContent() {
     setFormData({
       stakeAmount: "",
       nodeId: devices[0]?.node?.nodeID || "",
-      blsPublicKey: devices[0]?.node?.publicKey || "",
+      blsPublicKey: devices[0]?.node?.publicKey || "0xabbb10b000bc0c67d138236d48cc0c309964903fe7cda5211d5c7c69fe1a5ffb903ce1f190bf8819b1435ee31a250578",
       blsSignature: devices[0]?.node?.blsSignature || "",
       startDate: new Date(),
       endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),

@@ -14,7 +14,7 @@ export function DeviceList() {
   const [devices, setDevices] = useState<Device[]>([]);
 
   useEffect(() => {
-    fetch('http://100.70.162.111:3004/api/devices')
+    fetch('http://54.38.189.103:3004/api/devices')
       .then(res => res.json())
       .then(data => {
         if (data && Array.isArray(data.devices)) {

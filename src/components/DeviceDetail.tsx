@@ -56,7 +56,7 @@ export function DeviceDetail() {
         setError(null);
 
         // Fetch device status
-        const statusResponse = await fetch(`http://100.70.162.111:3004/api/devices/${id}/status`);
+        const statusResponse = await fetch(`http://54.38.189.103:3004/api/devices/${id}/status`);
         if (!statusResponse.ok) throw new Error('Failed to fetch device status');
         const statusData = await statusResponse.json();
         setStatus(statusData);
@@ -64,7 +64,7 @@ export function DeviceDetail() {
         // Fetch device metrics with the last 30 minutes of data
         const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000).toISOString();
         const metricsResponse = await fetch(
-          `http://100.70.162.111:3004/api/devices/${id}/metrics?from=${thirtyMinutesAgo}&limit=30`
+          `http://54.38.189.103:3004/api/devices/${id}/metrics?from=${thirtyMinutesAgo}&limit=30`
         );
         if (!metricsResponse.ok) throw new Error('Failed to fetch device metrics');
         const metricsData = await metricsResponse.json();
@@ -93,7 +93,7 @@ export function DeviceDetail() {
     if (!id || !status?.online) return;
 
     console.log('Initializing socket connection for device:', id);
-    const socket = io('http://100.70.162.111:3004', {
+    const socket = io('http://54.38.189.103:3004', {
       query: { deviceId: id }
     });
     socket.on('connect', () => {
@@ -133,7 +133,7 @@ export function DeviceDetail() {
     console.log('Sending command:', command);
     try {
       setOutput(prev => `${prev}\n> ${command}`);
-      const response = await fetch(`http://100.70.162.111:3004/api/devices/${id}/command`, {
+      const response = await fetch(`http://54.38.189.103:3004/api/devices/${id}/command`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ command })
