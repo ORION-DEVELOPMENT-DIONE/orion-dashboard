@@ -9,7 +9,6 @@ import { DelegationFeeStep } from "../components/staking-dione/steps/DelegationF
 import { StakingSummaryStep } from "../components/staking-dione/steps/StakingSummaryStep";
 import { DioneProvider, useDione } from "../contexts/DioneContext";
 import { calculateTimeRemaining } from "../components/staking-dione/utils/format";
-import { fetchDevices } from "../api/devices";
 import { Device } from "../types/device";
 
 const STEPS = [
@@ -22,7 +21,7 @@ const STEPS = [
 
 function StakingDioneContent() {
   const [devices, setDevices] = useState<Device[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const { walletAddress, status, balance, connectWallet, disconnectWallet } =
@@ -43,31 +42,7 @@ function StakingDioneContent() {
     delegationFee: 1,
   });
 
-  useEffect(() => {
-    const loadDevices = async () => {
-      try {
-        const response = await fetchDevices();
-        setDevices(response.data);
-
-        // Check if there is at least one device and set initial node data
-        if (response.data.length > 0) {
-          const { node } = response.data[0];
-          setFormData((prev) => ({
-            ...prev,
-            nodeId: node?.nodeID || "",
-            blsPublicKey: node?.publicKey || "",
-            blsSignature: node?.blsSignature || "",
-          }));
-        }
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to load devices");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadDevices();
-  }, []);
+  
 
   if (loading) {
     return          <div className="min-h-screen flex items-center justify-center">
@@ -145,98 +120,101 @@ function StakingDioneContent() {
   };
 
   return (
-    <div className="mb-8 bg-purple-900/30 p-4 rounded-lg border border-purple-500 text-white">
-      <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-[300px_1fr] gap-8">
-        <div>
-          <StakingProgress currentStep={currentStep} steps={steps} />
-          {status === "UnLock" && (
-            <GradientButton className="w-full mt-6" onClick={connectWallet}>
-              Connect Wallet
-            </GradientButton>
+<div className="mb-8 bg-gradient-to-br from-purple-800 to-purple-900 p-6 rounded-xl border border-purple-600 text-white shadow-lg hover:shadow-xl transition-all duration-300">
+  <div className="max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8">
+    
+    {/* Sidebar Section */}
+    <div className="bg-white/10 backdrop-blur-md p-6 rounded-lg shadow-md border border-purple-500">
+      <StakingProgress currentStep={currentStep} steps={steps} />
+      
+      {status === "UnLock" && (
+        <GradientButton className="w-full mt-6 transition-all duration-200 hover:bg-opacity-80" onClick={connectWallet}>
+          Connect Wallet
+        </GradientButton>
+      )}
+
+      {status === "Dashboard" && (
+        <GradientButton className="w-full mt-6 transition-all duration-200 hover:bg-opacity-80" onClick={disconnectWallet}>
+          Disconnect Wallet
+        </GradientButton>
+      )}
+    </div>
+
+    {/* Main Content Section */}
+    <div className="bg-[#1A1825] rounded-xl p-8 shadow-md border border-gray-700 transition-all duration-300 hover:shadow-lg">
+      {!showSummary ? (
+        <>
+          {currentStep === 1 && (
+            <StakeAmountStep
+              walletConnected={status === "Dashboard"}
+              walletAddress={walletAddress || ""}
+              balance={balance || "0"}
+              stakeAmount={formData.stakeAmount}
+              onStakeAmountChange={(value) => updateFormData("stakeAmount", value)}
+              onNext={handleNext}
+              onBack={handleBack}
+              minimumStakeAmount={500000}
+            />
           )}
-          {status === "Dashboard" && (
-            <GradientButton className="w-full mt-6" onClick={disconnectWallet}>
-              Disconnect Wallet
-            </GradientButton>
-          )}
-        </div>
 
-        <div className="bg-[#1A1825] rounded-xl p-8">
-          {!showSummary ? (
-            <>
-              {currentStep === 1 && (
-                <StakeAmountStep
-                  walletConnected={status === "Dashboard"}
-                  walletAddress={walletAddress || ""}
-                  balance={balance || "0"}
-                  stakeAmount={formData.stakeAmount}
-                  onStakeAmountChange={(value) =>
-                    updateFormData("stakeAmount", value)
-                  }
-                  onNext={handleNext}
-                  onBack={handleBack}
-                  minimumStakeAmount={500000}
-                />
-              )}
-
-{currentStep === 2 && (
-                <NodeInfoStep
-                  nodeId={formData.nodeId}
-                  blsPublicKey={formData.blsPublicKey}
-                  blsSignature={formData.blsSignature}
-                  onNodeIdChange={(value) => updateFormData('nodeId', value)}
-                  onBlsPublicKeyChange={(value) => updateFormData('blsPublicKey', value)}
-                  onBlsSignatureChange={(value) => updateFormData('blsSignature', value)}
-                  onNext={handleNext}
-                  onBack={handleBack}
-                />
-              )}
-
-              {currentStep === 3 && (
-                <StakingDurationStep
-                  startDate={formData.startDate}
-                  endDate={formData.endDate}
-                  onStartDateChange={(date) => updateFormData('startDate', date)}
-                  onEndDateChange={(date) => updateFormData('endDate', date)}
-                  onNext={handleNext}
-                  onBack={handleBack}
-                />
-              )}
-
-              {currentStep === 4 && (
-                <RewardAddressStep
-                  useConnectedWallet={formData.useConnectedWallet}
-                  customAddress={formData.customAddress}
-                  onUseConnectedWalletChange={(value) => updateFormData('useConnectedWallet', value)}
-                  onCustomAddressChange={(value) => updateFormData('customAddress', value)}
-                  onNext={handleNext}
-                  onBack={handleBack}
-                />
-              )}
-
-              {currentStep === 5 && (
-                <DelegationFeeStep
-                  fee={formData.delegationFee}
-                  useConnectedWallet={formData.useConnectedWallet}
-                  customAddress={formData.customAddress}
-                  onUseConnectedWalletChange={(value) => updateFormData('useConnectedWallet', value)}
-                  onCustomAddressChange={(value) => updateFormData('customAddress', value)}
-                  onFeeChange={(value) => updateFormData('delegationFee', value)}
-                  onNext={handleNext}
-                  onBack={handleBack}
-                />
-              )}
-            </>
-          ) : (
-            <StakingSummaryStep
-              summary={getSummaryData()}
-              onSubmit={handleSubmit}
+          {currentStep === 2 && (
+            <NodeInfoStep
+              nodeId={formData.nodeId}
+              blsPublicKey={formData.blsPublicKey}
+              blsSignature={formData.blsSignature}
+              onNodeIdChange={(value) => updateFormData('nodeId', value)}
+              onBlsPublicKeyChange={(value) => updateFormData('blsPublicKey', value)}
+              onBlsSignatureChange={(value) => updateFormData('blsSignature', value)}
+              onNext={handleNext}
               onBack={handleBack}
             />
           )}
-        </div>
-      </div>
+
+          {currentStep === 3 && (
+            <StakingDurationStep
+              startDate={formData.startDate}
+              endDate={formData.endDate}
+              onStartDateChange={(date) => updateFormData('startDate', date)}
+              onEndDateChange={(date) => updateFormData('endDate', date)}
+              onNext={handleNext}
+              onBack={handleBack}
+            />
+          )}
+
+          {currentStep === 4 && (
+            <RewardAddressStep
+              useConnectedWallet={formData.useConnectedWallet}
+              customAddress={formData.customAddress}
+              onUseConnectedWalletChange={(value) => updateFormData('useConnectedWallet', value)}
+              onCustomAddressChange={(value) => updateFormData('customAddress', value)}
+              onNext={handleNext}
+              onBack={handleBack}
+            />
+          )}
+
+          {currentStep === 5 && (
+            <DelegationFeeStep
+              fee={formData.delegationFee}
+              useConnectedWallet={formData.useConnectedWallet}
+              customAddress={formData.customAddress}
+              onUseConnectedWalletChange={(value) => updateFormData('useConnectedWallet', value)}
+              onCustomAddressChange={(value) => updateFormData('customAddress', value)}
+              onFeeChange={(value) => updateFormData('delegationFee', value)}
+              onNext={handleNext}
+              onBack={handleBack}
+            />
+          )}
+        </>
+      ) : (
+        <StakingSummaryStep
+          summary={getSummaryData()}
+          onSubmit={handleSubmit}
+          onBack={handleBack}
+        />
+      )}
     </div>
+  </div>
+</div>
   );
 }
 export default function StakingDione() {

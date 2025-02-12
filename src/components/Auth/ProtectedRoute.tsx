@@ -14,10 +14,10 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   useEffect(() => {
     console.log(isAuthenticated)
     if (!loading) {
-      if (!isAuthenticated) {
+      /*if (!isAuthenticated) {
         // Redirect to login if not authenticated
         navigate('/login', { state: { from: location } });
-      } 
+      } */
       
     }
   }, [loading, isAuthenticated, navigate]);
