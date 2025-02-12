@@ -17,7 +17,7 @@ export function useAuth() {
   const login = async (email: string, password: string) => {
     setLoading(true);
     try {
-      const response = await fetch(`https://http://54.38.189.103:3004/api/v1/auth/login`, {
+      const response = await fetch(`https://54.38.189.103:3004/api/v1/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

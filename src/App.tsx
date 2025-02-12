@@ -26,13 +26,18 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<AuthForm />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/staking-dione" element={<StakingDione />} />
+        <Route path="/dashboard" element={<Dashboard />}>
+                    <Route index element={<DeviceList />} />
+                    <Route path="device/:id" element={<DeviceDetail />} />
+        </Route>
         <Route
           path="/*"
           element={
             <ProtectedRoute>
               <Layout>
                 <Routes>
-                  <Route path="/" element={<HomePage />} />
                   <Route path="/metrics" element={<ValidatorMetrics />} />
                   <Route path="/setup" element={<SetupWizard />} />
                   <Route path="/energy" element={<MetricsPage />} />
@@ -40,11 +45,7 @@ export default function App() {
                   <Route path="/pair" element={<DevicePairingPage />} />
                   <Route path="/docs" element={<DocsPage />} />
                   <Route path="/management" element={<GlobalManagementPage />} />
-                  <Route path="/staking-dione" element={<StakingDione />} />
-                  <Route path="/dashboard" element={<Dashboard />}>
-                    <Route index element={<DeviceList />} />
-                    <Route path="device/:id" element={<DeviceDetail />} />
-                  </Route>
+                  
                 </Routes>
               </Layout>
             </ProtectedRoute>

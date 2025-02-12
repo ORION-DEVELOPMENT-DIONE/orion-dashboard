@@ -3,7 +3,7 @@ import axios from 'axios';
 import { DevicesResponse } from '../types/device';
 import { getAuthToken } from '../utils/auth';
 
-const API_BASE_URL = 'http://54.38.189.103:3004/api/v1';
+const API_BASE_URL = 'https://54.38.189.103:3004/api/v1';
 
 export const fetchDevices = async () => {
   const token = getAuthToken();
